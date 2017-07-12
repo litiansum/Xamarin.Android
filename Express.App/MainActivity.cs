@@ -2,6 +2,7 @@
 using Android.Widget;
 using Android.OS;
 using Express.Tools;
+using Express.Tools.Responses;
 
 namespace Express.App
 {
@@ -26,11 +27,15 @@ namespace Express.App
         private async void BtnQuery_Click(object sender, System.EventArgs e)
         {
             KDNiaoHelper helper = new KDNiaoHelper();
-            string ret = await helper.GetOrderTracesByJson();
-            var dialog = new AlertDialog.Builder(this);
-            dialog.SetMessage(ret);
-            dialog.SetNegativeButton("确定",delegate { });
-            dialog.Show();
+            string ret = await helper.OrderTracesSubByJson();
+            if (!string.IsNullOrEmpty(ret))
+            {
+                //OrderDisResponse response = System.Json.JsonValue.Load()
+            }
+            //var dialog = new AlertDialog.Builder(this);
+            //dialog.SetMessage(ret);
+            //dialog.SetNegativeButton("确定",delegate { });
+            //dialog.Show();
         }
     }
 }
