@@ -27,7 +27,9 @@ namespace Express.App
 
         private async void BtnQuery_Click(object sender, System.EventArgs e)
         {
+            var dialog = new AlertDialog.Builder(this);
             KDNiaoHelper helper = new KDNiaoHelper();
+            //识别订单
             var ret = await helper.OrderTracesSubByJson();
             if (ret != null && ret.Shippers.Count > 0)
             {
@@ -35,10 +37,12 @@ namespace Express.App
                 var orderTrace = await helper.GetOrderTracesByJson(exTypeInfo.ShipperCode, ret.LogisticCode);
                 //OrderDisResponse response = System.Json.JsonValue.Load()
             }
-            //var dialog = new AlertDialog.Builder(this);
-            //dialog.SetMessage(ret);
-            //dialog.SetNegativeButton("确定",delegate { });
-            //dialog.Show();
+            else
+            {
+                dialog.SetMessage("未能识别订单");
+                dialog.SetNegativeButton("确定", delegate { });
+                dialog.Show();
+            }
         }
     }
 }
