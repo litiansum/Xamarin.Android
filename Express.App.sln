@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Express.App", "Express.App\Express.App.csproj", "{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Express.Tools", "Express.Tools\Express.Tools.csproj", "{DDB50CCD-A6DC-4415-AC6F-1ADB3612F4D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADFAAABF-C00B-40BC-9DD1-AACB7B0FF761}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DDB50CCD-A6DC-4415-AC6F-1ADB3612F4D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB50CCD-A6DC-4415-AC6F-1ADB3612F4D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB50CCD-A6DC-4415-AC6F-1ADB3612F4D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB50CCD-A6DC-4415-AC6F-1ADB3612F4D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
