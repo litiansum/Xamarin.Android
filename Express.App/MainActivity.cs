@@ -3,6 +3,7 @@ using Android.Widget;
 using Android.OS;
 using Express.Tools;
 using Express.Tools.Responses;
+using System.Linq;
 
 namespace Express.App
 {
@@ -27,9 +28,11 @@ namespace Express.App
         private async void BtnQuery_Click(object sender, System.EventArgs e)
         {
             KDNiaoHelper helper = new KDNiaoHelper();
-            string ret = await helper.OrderTracesSubByJson();
-            if (!string.IsNullOrEmpty(ret))
+            var ret = await helper.OrderTracesSubByJson();
+            if (ret != null && ret.Shippers.Count > 0)
             {
+                var exTypeInfo = ret.Shippers.FirstOrDefault();
+                var orderTrace = await helper.GetOrderTracesByJson(exTypeInfo.ShipperCode, ret.LogisticCode);
                 //OrderDisResponse response = System.Json.JsonValue.Load()
             }
             //var dialog = new AlertDialog.Builder(this);

@@ -17,7 +17,7 @@ namespace Express.Tools
         /// <param name="url">发送请求的 URL</param>
         /// <param name="param">请求的参数集合</param>
         /// <returns>远程资源的响应结果</returns>
-        public static async Task<string> SendPost(string url, Dictionary<string, string> param)
+        public static async Task<Stream> SendPost(string url, Dictionary<string, string> param)
         {
             string result = "";
             StringBuilder postData = new StringBuilder();
@@ -51,19 +51,13 @@ namespace Express.Tools
                 stream.Flush();
                 stream.Close();
                 HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
-                Stream backStream = response.GetResponseStream();
-                StreamReader sr = new StreamReader(backStream, Encoding.GetEncoding("UTF-8"));
-                result = sr.ReadToEnd();
-                sr.Close();
-                backStream.Close();
-                response.Close();
-                request.Abort();
+                return response.GetResponseStream();
             }
             catch (Exception ex)
             {
                 result = ex.Message;
             }
-            return result;
+            return null;
         }
 
     }

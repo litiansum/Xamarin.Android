@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Express.Tools.Responses;
+using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,25 +19,43 @@ namespace Express.Tools
         /// Json方式  单号识别
         /// </summary>
         /// <returns></returns>
-        public async Task<string> OrderTracesSubByJson(string expressId = "710386923334")
+        public async Task<OrderDisResponse> OrderTracesSubByJson(string expressId = "710386923334")
         {
-            //string reqUrl = "http://testapi.kdniao.cc:8081/Ebusiness/EbusinessOrderHandle.aspx";
-            //正式
-            string reqUrl = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
-            string requestData = "{'LogisticCode': '"+ expressId + "'}";
-            Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("RequestData", requestData);
-            param.Add("EBusinessID", EBusinessID);
-            param.Add("RequestType", "2002");
-            string dataSign = SignHelper.Encrypt(requestData, AppKey, "UTF-8");
-            param.Add("DataSign", dataSign);
-            param.Add("DataType", "2");
-
-            string result = await RestService.SendPost(reqUrl, param);
-
-            //根据公司业务处理返回的信息......
-
-            return result;
+            try
+            {
+                //string reqUrl = "http://testapi.kdniao.cc:8081/Ebusiness/EbusinessOrderHandle.aspx";
+                //正式
+                string reqUrl = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
+                string requestData = "{'LogisticCode': '" + expressId + "'}";
+                Dictionary<string, string> param = new Dictionary<string, string>();
+                param.Add("RequestData", requestData);
+                param.Add("EBusinessID", EBusinessID);
+                param.Add("RequestType", "2002");
+                string dataSign = SignHelper.Encrypt(requestData, AppKey, "UTF-8");
+                param.Add("DataSign", dataSign);
+                param.Add("DataType", "2");
+                var response = await RestService.SendPost(reqUrl, param);
+                var jsonObject = (JsonObject)JsonObject.Load(response);
+                OrderDisResponse orderReponse = new OrderDisResponse();
+                orderReponse.EBusinessID = jsonObject["EBusinessID"];
+                orderReponse.Success = jsonObject["Success"];
+                orderReponse.LogisticCode = jsonObject["LogisticCode"];
+                var array = (JsonArray)jsonObject["Shippers"];
+                orderReponse.Shippers = new List<Shipper>();
+                foreach (var item in array)
+                {
+                    Shipper sp = new Shipper();
+                    sp.ShipperCode = item["ShipperCode"];
+                    sp.ShipperName = item["ShipperName"];
+                    orderReponse.Shippers.Add(sp);
+                }
+                return orderReponse;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return null;
         }
         /// <summary>
         /// 查询快递单物流轨迹
@@ -43,7 +63,7 @@ namespace Express.Tools
         /// <param name="exType"></param>
         /// <param name="exCode"></param>
         /// <returns></returns>
-        public async Task<string> GetOrderTracesByJson(string exType,string exCode)
+        public async Task<object> GetOrderTracesByJson(string exType,string exCode)
         {
             string reqUrl = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx";
             string requestData = "{'OrderCode':'','ShipperCode':'"+ exType + "','LogisticCode':'"+ exCode + "'}";
@@ -56,7 +76,7 @@ namespace Express.Tools
             param.Add("DataSign", dataSign);
             param.Add("DataType", "2");
 
-            string result = await RestService.SendPost(reqUrl, param);
+            var result = await RestService.SendPost(reqUrl, param);
 
             //根据公司业务处理返回的信息......
 
