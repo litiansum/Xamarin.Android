@@ -11,9 +11,9 @@ namespace Express.Tools
     public class KDNiaoHelper
     {
         //电商ID,请到快递鸟官网申请http://www.kdniao.com/ServiceApply.aspx
-        private const string EBusinessID = "1295332";
+        private const string EBusinessID = "*********";
         //电商加密私钥，快递鸟提供，注意保管，不要泄漏
-        private const string AppKey = "65f3f78f-00e4-42ad-8ed5-3e06978fe762";
+        private const string AppKey = "######################################";
 
         /// <summary>
         /// Json方式  单号识别
